@@ -1,0 +1,41 @@
+name: Deploy Model to Azure Blob
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'models/**'  # only triggers if files in models folder change
+
+jobs:
+  upload-to-blob:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Upload .pkl model to Azure Blob
+        uses: azure/CLI@v1
+
+        with:
+          inlineScript: |
+            az storage blob upload \
+              --account-name ${{ secrets.AZURE_STORAGE_ACCOUNT_NAME }} \
+              --account-key ${{ secrets.AZURE_STORAGE_ACCOUNT_KEY }} \
+              --container-name model \
+              --name Stable_xgb_regression_model.pkl \
+              --file models/Stable_xgb_regression_model.pkl \
+              --overwrite true
+
+      - name: Upload features CSV to Azure Blob
+        uses: azure/CLI@v1
+
+        with:
+          inlineScript: |
+            az storage blob upload \
+              --account-name ${{ secrets.AZURE_STORAGE_ACCOUNT_NAME }} \
+              --account-key ${{ secrets.AZURE_STORAGE_ACCOUNT_KEY }} \
+              --container-name model \
+              --name Stable_final_used_features.csv \
+              --file models/Stable_final_used_features.csv \
+              --overwrite true
