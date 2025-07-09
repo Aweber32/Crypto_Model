@@ -39,7 +39,7 @@ jobs:
               --name Stable_final_used_features.csv \
               --file models/Stable_final_used_features.csv \
               --overwrite true
-              
+
       - name: Upload label encoder to Azure Blob
         uses: azure/CLI@v1
 
@@ -48,7 +48,7 @@ jobs:
             az storage blob upload \
               --account-name ${{ secrets.AZURE_STORAGE_ACCOUNT_NAME }} \
               --account-key ${{ secrets.AZURE_STORAGE_ACCOUNT_KEY }} \
-              --container-name models \
+              --container-name model \
               --name symbol_label_encoder.pkl \
               --file models/symbol_label_encoder.pkl \
               --overwrite true
