@@ -146,7 +146,7 @@ for n in range(5, min(31, len(importance) + 1)):
 # Save evaluation table
 results_df = pd.DataFrame(results, columns=["TopN", "MAE", "RMSE"])
 os.makedirs("models", exist_ok=True)
-results_df.to_csv("models/Stable_topN_evaluation_results.csv", index=False)
+results_df.to_csv("models/1h_prediction_Stable_topN_evaluation_results.csv", index=False)
 
 # Select best N based on lowest MAE
 best_n = results_df.loc[results_df["MAE"].idxmin(), "TopN"]
@@ -164,9 +164,9 @@ mae = mean_absolute_error(y_test_final, y_pred_final)
 rmse = np.sqrt(mean_squared_error(y_test_final, y_pred_final))
 
 # Save final model and feature list
-joblib.dump(final_model, "models/Stable_xgb_regression_model.pkl")
-pd.Series(best_features).to_csv("models/Stable_final_used_features.csv", index=False)
-joblib.dump(le, "models/symbol_label_encoder.pkl")
+joblib.dump(final_model, "models/1h_prediction_Stable_xgb_regression_model.pkl")
+pd.Series(best_features).to_csv("models/1h_prediction_Stable_final_used_features.csv", index=False)
+joblib.dump(le, "models/1h_prediction_symbol_label_encoder.pkl")
 
 # Save predicted vs actual plot
 import matplotlib.pyplot as plt
@@ -177,11 +177,11 @@ plt.ylabel("Predicted % Change")
 plt.title(f"Predicted vs Actual\\nMAE: {mae:.4f}, RMSE: {rmse:.4f}")
 plt.grid(True)
 plt.tight_layout()
-plt.savefig("models/Stable_predicted_vs_actual.png")
+plt.savefig("models/1h_prediction_Stable_predicted_vs_actual.png")
 
 # Save feature importances
 feature_importance = pd.Series(final_model.feature_importances_, index=X_final.columns)
-feature_importance.sort_values(ascending=False).to_csv("models/Stable_feature_importance.csv")
+feature_importance.sort_values(ascending=False).to_csv("models/1h_prediction_Stable_feature_importance.csv")
 
 # Output
 print("Best Parameters:", best_params)
