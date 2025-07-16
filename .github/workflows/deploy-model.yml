@@ -23,8 +23,8 @@ jobs:
               --account-name ${{ secrets.AZURE_STORAGE_ACCOUNT_NAME }} \
               --account-key ${{ secrets.AZURE_STORAGE_ACCOUNT_KEY }} \
               --container-name model \
-              --name Stable_xgb_regression_model.pkl \
-              --file models/Stable_xgb_regression_model.pkl \
+              --name 1h_prediction_Stable_xgb_regression_model.pkl \
+              --file models/1h_prediction_Stable_xgb_regression_model.pkl \
               --overwrite true
 
       - name: Upload features CSV to Azure Blob
@@ -36,8 +36,8 @@ jobs:
               --account-name ${{ secrets.AZURE_STORAGE_ACCOUNT_NAME }} \
               --account-key ${{ secrets.AZURE_STORAGE_ACCOUNT_KEY }} \
               --container-name model \
-              --name Stable_final_used_features.csv \
-              --file models/Stable_final_used_features.csv \
+              --name 1h_prediction_Stable_final_used_features.csv \
+              --file models/1h_prediction_Stable_final_used_features.csv \
               --overwrite true
 
       - name: Upload label encoder to Azure Blob
@@ -49,6 +49,6 @@ jobs:
               --account-name ${{ secrets.AZURE_STORAGE_ACCOUNT_NAME }} \
               --account-key ${{ secrets.AZURE_STORAGE_ACCOUNT_KEY }} \
               --container-name model \
-              --name symbol_label_encoder.pkl \
-              --file models/symbol_label_encoder.pkl \
+              --name 1h_prediction_symbol_label_encoder.pkl \
+              --file models/1h_prediction_symbol_label_encoder.pkl \
               --overwrite true
